@@ -35,3 +35,5 @@ TODO5: Mediat-R
 -   Caller -> Request -> MediatR -> Pre Processor Behaviour -> Handler -> Post Processor Behaviour
 
 TODO6: [Features]
+
+TODO7: [Application Service Registrations]

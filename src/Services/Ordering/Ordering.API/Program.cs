@@ -7,6 +7,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//TODO: Add DI Ordering Service
+builder.Services.AddApplicationServices();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

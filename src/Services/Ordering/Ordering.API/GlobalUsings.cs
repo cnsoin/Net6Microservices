@@ -1,7 +1,1 @@
-namespace Ordering.API
-{
-    public class GlobalUsings
-    {
-        
-    }
-}
+global using Ordering.Application;

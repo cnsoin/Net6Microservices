@@ -1,7 +1,3 @@
-using Ordering.Application.Contracts.Infrastructure;
-using Ordering.Application.Models;
-using Ordering.Domain.Entities;
-
 namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder;
 public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, int>
 {
