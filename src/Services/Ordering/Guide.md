@@ -1,7 +1,13 @@
 ##Domain Driven design
 #Domain
-TODO1: [Common] - EntityBase - ValueObject
-TODO2: [Entities] - Order.cs
+TODO1:
+
+-   [Common]
+-   EntityBase - ValueObject
+
+TODO2:
+
+-[Entities] - Order.cs
 
 #Application
 TODO1: [Contracts] - [Features] - [Behaviours]
@@ -14,9 +20,18 @@ TODO2:
 [Contracst]:
 
 -   Persistence: IAsyncRepository
--   Infrastructure: Email 
+-   Infrastructure: Email
 
 TODO3:
-[Models]: Email.cs
-TODO4: 
-[Mapping]
+
+-   [models]: Email.cs
+
+TODO4:
+
+-   [Mapping]
+
+TODO5: Mediat-R
+
+-   Caller -> Request -> MediatR -> Pre Processor Behaviour -> Handler -> Post Processor Behaviour
+
+TODO6: [Features]

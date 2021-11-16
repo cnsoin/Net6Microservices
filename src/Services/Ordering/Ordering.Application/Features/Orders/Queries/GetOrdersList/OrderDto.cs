@@ -1,8 +1,5 @@
-using Ordering.Domain.Common;
-
-namespace Ordering.Domain.Entities;
-
-public class Order : EntityBase
+namespace Ordering.Application.Features.Orders.Queries.GetOrdersList;
+public class OrderDto
 {
     public string UserName { get; set; }
     public decimal TotalPrice { get; set; }

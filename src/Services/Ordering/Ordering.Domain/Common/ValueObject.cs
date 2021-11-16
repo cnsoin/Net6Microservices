@@ -2,7 +2,7 @@ namespace Ordering.Domain.Common;
 public abstract class ValueObject
 {
     //?: https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects
-    protected static bool EqualOperator(ValueObject? left, ValueObject? right)
+    protected static bool EqualOperator(ValueObject left, ValueObject right)
     {
         if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
         {
@@ -11,14 +11,14 @@ public abstract class ValueObject
         return ReferenceEquals(left, null) || left.Equals(right);
     }
 
-    protected static bool NotEqualOperator(ValueObject? left, ValueObject? right)
+    protected static bool NotEqualOperator(ValueObject left, ValueObject right)
     {
         return !(EqualOperator(left, right));
     }
 
     protected abstract IEnumerable<object> GetEqualityComponents();
 
-    public override bool Equals(object? obj)
+    public override bool Equals(object obj)
     {
         if (obj == null || obj.GetType() != GetType())
         {
