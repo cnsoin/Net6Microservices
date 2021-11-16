@@ -1,5 +1,3 @@
-global using Microsoft.AspNetCore.Mvc;
-
 namespace Catalog.API.Controllers
 {
     //[Route("api/v{version:apiVersion}/[controller]")]
