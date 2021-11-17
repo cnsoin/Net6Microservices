@@ -1,3 +1,5 @@
+global using Microsoft.AspNetCore.Mvc;
+
 global using Ordering.Application;
 global using System.Reflection;
 global using FluentValidation;
