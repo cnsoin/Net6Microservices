@@ -1,5 +1,5 @@
 namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder;
-public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, int>
+public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, Guid?>
 {
     private readonly IOrderRepository _orderRepository;
     private readonly IMapper _mapper;
@@ -14,7 +14,7 @@ public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand,
         _logger = logger;
     }
 
-    public async Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
+    public async Task<Guid?> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
     {
         _logger.LogInformation($"BEGIN: {nameof(CheckoutOrderCommandHandler)}");
         var req = _mapper.Map<Order>(request);
