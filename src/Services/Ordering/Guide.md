@@ -37,3 +37,6 @@ TODO5: Mediat-R
 TODO6: [Features]
 
 TODO7: [Application Service Registrations]
+
+#Infrastructure
+TODO1: Persistence
