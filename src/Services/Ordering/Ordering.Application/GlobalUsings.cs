@@ -8,7 +8,3 @@ global using Ordering.Application.Models;
 global using Ordering.Domain.Entities;
 global using FluentValidation;
 global using Ordering.Application.Exceptions;
-global using Ordering.Application.Features.Orders.Commands.CheckoutOrder;
-global using Ordering.Application.Features.Orders.Commands.DeleteOrder;
-global using Ordering.Application.Features.Orders.Commands.UpdateOrder;
-global using Ordering.Application.Features.Orders.Queries.GetOrdersList;
