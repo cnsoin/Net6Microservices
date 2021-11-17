@@ -23,9 +23,9 @@ namespace Catalog.Application.Features.Products.Queries.GetProductsList
         {
             _logger.LogInformation($"BEGIN: {nameof(GetProductsListQuery)}");
             var query = await _productRepository.GetAllAsync(request.PageNumber, request.PageSize);
-            var items = _mapper.Map<List<ProductDto>>(query);
+            var items = _mapper.Map<List<ProductDto>>(query.Item1);
             _logger.LogInformation($"END: {nameof(GetProductsListQuery)}");
-            return new PagedList<ProductDto>(items, items.Count, request.PageNumber, request.PageSize);
+            return new PagedList<ProductDto>(items, query.Item2, request.PageNumber, request.PageSize);
         }
     }
 }
