@@ -14,11 +14,15 @@ namespace Catalog.Infrastructure.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public async Task<IReadOnlyList<T>> GetAllAsync(int pageNumber, int pageSize)
+        public async Task<Tuple<List<T>, long>> GetAllAsync(int pageNumber, int pageSize)
         {
-            return await _dbContext.Set<T>().OrderByDescending(p => p.CreatedDate).Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
+            var data = _dbContext.Set<T>();
+            var totalRows = await data.CountAsync();
+            var result = await data.OrderByDescending(p => p.CreatedDate)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize).ToListAsync();
+
+            return new Tuple<List<T>, long>(result, totalRows);
         }
 
         public virtual async Task<T> GetByIdAsync(Guid? id)

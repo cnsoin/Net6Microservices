@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  orderdb:
-    container_name: orderdb
+  ecommercedb:
+    container_name: ecommercedb
     environment:
         SA_PASSWORD: "someThingComplicated1234"
         ACCEPT_EULA: "Y"
@@ -14,8 +14,18 @@ services:
     container_name: ordering.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=someThingComplicated1234"  
+      - "ConnectionStrings:OrderingConnectionString=Server=ecommercedb;Database=OrderDb;User Id=sa;Password=someThingComplicated1234"  
     depends_on:
-        - orderdb
+        - ecommercedb
     ports:
         - "8004:80"
+
+  catalog.api:
+    container_name: catalog.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:CatalogConnectionString=Server=ecommercedb;Database=ProductDb;User Id=sa;Password=someThingComplicated1234"  
+    depends_on:
+      - ecommercedb
+    ports:
+      - "8001:80"
