@@ -40,3 +40,7 @@ TODO7: [Application Service Registrations]
 
 #Infrastructure
 TODO1: Persistence
+TODO2: Add EF
+TODO3: Add Repsitory
+TODO4: Mail Services
+TODO5: Registration Infracstructure
