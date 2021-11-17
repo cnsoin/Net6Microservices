@@ -38,6 +38,7 @@ namespace Catalog.Application.Features.Products.Commands.CreateProducts
             //     _logger.LogInformation($"END: {nameof(CreateProductCommandHandler)}");
             //     //return query.Id;
             // }
+            // return null;
 
             var query = await _productRepository.AddAsync(req);
             _logger.LogInformation($"Product {query.Id} is successfully created.");
