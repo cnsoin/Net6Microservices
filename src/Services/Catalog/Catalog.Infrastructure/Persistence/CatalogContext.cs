@@ -19,6 +19,7 @@ namespace Catalog.Infrastructure.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
+                        entry.Entity.Id = Guid.NewGuid();
                         entry.Entity.CreatedDate = DateTime.Now;
                         entry.Entity.CreatedBy = "Hung";
                         break;

@@ -16,7 +16,7 @@ namespace Catalog.Infrastructure.Repositories
 
         public async Task<IReadOnlyList<T>> GetAllAsync(int pageNumber, int pageSize)
         {
-            return await _dbContext.Set<T>().Skip((pageNumber - 1) * pageSize)
+            return await _dbContext.Set<T>().OrderByDescending(p => p.CreatedDate).Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
         }
