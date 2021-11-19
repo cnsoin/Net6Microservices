@@ -1,0 +1,41 @@
+//TODO: https://comdy.vn/asp-net-core-web-api/microservices-voi-grpc-va-asp-net-core-3-1/
+
+syntax = "proto3";
+option csharp_namespace = "Discount.Grpc.Protos";
+
+//Export
+service DiscountProtoService {
+	rpc GetDiscount (GetDiscountRequest) returns (CouponDto);
+
+	rpc CreateDiscount (CreateDiscountRequest) returns (CouponDto);
+	rpc UpdateDiscount (UpdateDiscountRequest) returns (CouponDto);
+	rpc DeleteDiscount (DeleteDiscountRequest) returns (DeleteDiscountResponse);
+}
+
+
+message GetDiscountRequest {
+	string productName = 1;	
+}
+
+message CouponDto {
+	int32 id = 1;
+	string productName = 2;
+	string description = 3;
+	int32 amount = 4;
+}
+
+message CreateDiscountRequest {
+	CouponDto coupon = 1;
+}
+
+message UpdateDiscountRequest {
+	CouponDto coupon = 1;
+}
+
+message DeleteDiscountRequest {
+	string productName = 1;
+}
+
+message DeleteDiscountResponse {
+	bool success = 1;
+}
