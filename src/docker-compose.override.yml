@@ -45,3 +45,14 @@ services:
       - basketdb
     ports:
       - "8002:80"
+
+  discount.grpc:
+    container_name: discount.grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:ConnectionString=Server=ecommercedb;Database=DiscountDb;User Id=admin;Password=someThingComplicated1234"
+    depends_on:
+      - ecommercedb
+    ports:
+      - "8003:80"
+
