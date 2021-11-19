@@ -4,7 +4,6 @@ using Discount.Grpc.Data;
 using Discount.Grpc.Repositories;
 using Discount.Grpc.Services;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.InteropServices;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,10 +19,7 @@ builder.Services.AddDbContext<DiscountContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString"), b => b.MigrationsAssembly("Discount.Grpc")));
 
 //MacOs Http/2 Support
-builder.WebHost.ConfigureKestrel(opt => opt.ListenLocalhost(8003, o => o.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2));
-AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2Support", true);
-
+//builder.WebHost.ConfigureKestrel(opt => opt.ListenLocalhost(8003, o => o.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2));
 
 var app = builder.Build();
 
