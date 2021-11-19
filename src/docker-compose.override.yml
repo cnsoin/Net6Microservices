@@ -51,7 +51,7 @@ services:
     container_name: discount.grpc
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:ConnectionString=Server=ecommercedb;Database=DiscountDb;User Id=admin;Password=someThingComplicated1234"
+      - "ConnectionStrings:DiscountConnectionString=Server=ecommercedb;Database=DiscountDb;User Id=sa;Password=someThingComplicated1234"  
     depends_on:
       - ecommercedb
     ports:

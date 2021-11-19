@@ -16,7 +16,7 @@ builder.Services.AddGrpc();
 builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDbContext<DiscountContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString"), b => b.MigrationsAssembly("Discount.Grpc")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DiscountConnectionString"), b => b.MigrationsAssembly("Discount.Grpc")));
 
 //MacOs Http/2 Support
 //builder.WebHost.ConfigureKestrel(opt => opt.ListenLocalhost(8003, o => o.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2));
