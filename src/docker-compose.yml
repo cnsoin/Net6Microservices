@@ -7,6 +7,9 @@ services:
   basketdb:
     image: redis:alpine
 
+  portainer:
+    image: portainer/portainer-ce
+
   ordering.api:
     image: ${DOCKER_REGISTRY-}ordering
     build:
@@ -32,3 +35,5 @@ services:
       context: .
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
 
+volumes:
+  portainer_data:
