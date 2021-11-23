@@ -1,9 +1,9 @@
-using System.Security.AccessControl;
+using System.Reflection;
 using Basket.API.GrpcServices;
 using Basket.API.Repositories;
 using Discount.Grpc.Protos;
-using System.Runtime.InteropServices;
-using Grpc.Net.Client;
+using EventBus.Messages.Event;
+using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +24,19 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>
 (o => o.Address = new Uri(builder.Configuration.GetValue<string>("GrpcSettings:DiscountUrl")));
 
 builder.Services.AddScoped<DiscountGrpcService>();
+
+// AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
+
+// MassTransit-RabbitMQ Configuration
+builder.Services.AddMassTransit(config =>
+{
+    config.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.Host(builder.Configuration.GetValue<string>("EventBusSettings:HostAddress"));
+    });
+});
+builder.Services.AddMassTransitHostedService();
 
 
 var app = builder.Build();

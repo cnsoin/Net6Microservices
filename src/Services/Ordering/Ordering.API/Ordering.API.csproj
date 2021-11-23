@@ -17,11 +17,16 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="MassTransit" Version="7.2.4" />
+		<PackageReference Include="MassTransit.AspNetCore" Version="7.2.4" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="7.2.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Ordering.Application\Ordering.Application.csproj" />
     <ProjectReference Include="..\Ordering.Infrastructure\Ordering.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus.Messages\EventBus.Messages.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Common.Shared\Common.Shared.csproj" />
   </ItemGroup>
 
 </Project>
