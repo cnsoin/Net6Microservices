@@ -1,5 +1,7 @@
-using Ordering.API.Extensions;
+using MassTransit;
+using Ordering.API.EventBusConsumer;
 using Ordering.Application.Features.Orders.Queries.GetOrdersList;
+using static Common.Shared.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -28,6 +30,28 @@ builder.Services.AddMediatR(typeof(GetOrdersListQuery).GetTypeInfo().Assembly);
 
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+
+
+//TODO: MassTransit-RabbitMQ Configuration
+builder.Services.AddMassTransit(config =>
+{
+    config.AddConsumer<BasketCheckoutConsumer>();
+
+    config.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.Host(builder.Configuration.GetValue<string>("EventBusSettings:HostAddress"));
+
+        cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c =>
+            {
+                c.ConfigureConsumer<BasketCheckoutConsumer>(ctx);
+            });
+    });
+});
+builder.Services.AddMassTransitHostedService();
+builder.Services.AddScoped<BasketCheckoutConsumer>();
+builder.Services.AddAutoMapper(typeof(Program));
+//builder.Services.AddAutoMapper(typeof(BasketCheckoutConsumer).GetTypeInfo().Assembly);
+
 
 var app = builder.Build();
 
