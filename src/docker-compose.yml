@@ -38,5 +38,11 @@ services:
       context: .
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
 
+  ocelotapigw:
+    image: ${DOCKER_REGISTRY-}ocelotapigw
+    build:
+      context: .
+      dockerfile: ApiGateways/OcelotApiGw/Dockerfile
+
 volumes:
   portainer_data:
