@@ -1,4 +1,5 @@
 using System.Net;
+using Common.Shared.SeedWork;
 using Ordering.Application.Features.Orders.Commands.CheckoutOrder;
 using Ordering.Application.Features.Orders.Commands.DeleteOrder;
 using Ordering.Application.Features.Orders.Commands.UpdateOrder;
@@ -16,11 +17,19 @@ namespace Ordering.API.Controllers.V1
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<OrderDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrdersByUserName([FromQuery] GetOrdersListQuery query)
+        [ProducesResponseType(typeof(ApiResult<PagedList<OrderDto>>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<ApiResult<PagedList<OrderDto>>>> GetOrdersByUserName([FromQuery] GetOrdersListQuery query)
         {
             var orders = await _mediator.Send(query);
-            return Ok(orders);
+
+            var result = new ApiResult<PagedList<OrderDto>>
+            {
+                Message = "Success",
+                IsSuccessed = true,
+                ResultObj = orders
+            };
+
+            return Ok(result);
         }
 
         // testing purpose
