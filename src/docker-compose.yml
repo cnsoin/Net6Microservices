@@ -50,6 +50,13 @@ services:
       context: .
       dockerfile: ApiGateways/Shopping.Aggregator/Dockerfile
 
+  identity.api:
+    image: ${DOCKER_REGISTRY-}identity
+    build:
+      context: .
+      dockerfile: Services/Identity/Identity.API/Dockerfile
+
 volumes:
   portainer_data:
+
 

@@ -33,18 +33,6 @@ services:
     ports:
       - "6379:6379"
 
-  ordering.api:
-    container_name: ordering.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:OrderingConnectionString=Server=ecommercedb;Database=OrderDb;User Id=sa;Password=someThingComplicated1234" 
-      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672" 
-    depends_on:
-        - ecommercedb
-        - rabbitmq
-    ports:
-        - "8004:80"
-
   catalog.api:
     container_name: catalog.api
     environment:
@@ -77,8 +65,27 @@ services:
       - ecommercedb
     ports:
       - "8003:80"
-
-
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderingConnectionString=Server=ecommercedb;Database=OrderDb;User Id=sa;Password=someThingComplicated1234" 
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672" 
+    depends_on:
+        - ecommercedb
+        - rabbitmq
+    ports:
+        - "8004:80"
+  
+  identity.api:
+    container_name: identity.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:IdentityConnectionString=Server=ecommercedb;Database=IdentityDb;User Id=sa;Password=someThingComplicated1234"  
+    depends_on:
+      - ecommercedb
+    ports:
+      - "8005:80"
   ocelotapigw:
     container_name: ocelotapigw
     environment:
@@ -102,4 +109,6 @@ services:
       - basket.api
       - ordering.api
     ports:
-      - "8005:80"
+      - "8006:80"
+
+  
