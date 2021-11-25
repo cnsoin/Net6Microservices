@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace Catalog.API.Controllers
 {
     //[Route("api/v{version:apiVersion}/[controller]")]

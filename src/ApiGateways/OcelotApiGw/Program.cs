@@ -1,6 +1,7 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Cache.CacheManager;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,21 @@ builder.Services.AddCors(o => o.AddPolicy("AllowAnyOrigins", builder =>
                  .AllowAnyHeader()
                  .AllowAnyMethod();
             }));
+
+var authenticationProviderKey = "IdentityApiKey";
+
+// NUGET - Microsoft.AspNetCore.Authentication.JwtBearer
+builder.Services.AddAuthentication()
+    .AddJwtBearer(authenticationProviderKey, x =>
+    {
+        x.Authority = "https://localhost:8005"; // IDENTITY SERVER URL
+                                                //x.RequireHttpsMetadata = false;
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false
+        };
+    });
+
 
 builder.Services.AddOcelot()
                 .AddCacheManager(settings => settings.WithDictionaryHandle());
