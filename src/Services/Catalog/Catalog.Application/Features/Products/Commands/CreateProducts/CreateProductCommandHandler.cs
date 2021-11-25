@@ -24,7 +24,7 @@ namespace Catalog.Application.Features.Products.Commands.CreateProducts
             _logger.LogInformation($"BEGIN: {nameof(CreateProductCommandHandler)}");
             var req = _mapper.Map<Product>(request);
 
-            //TODO: Seed Data
+            // //TODO: Seed Data
             // for (int i = 0; i < 10000; i++)
             // {
             //     req.Name = $"Product {i}";

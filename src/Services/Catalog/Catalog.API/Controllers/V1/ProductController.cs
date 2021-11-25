@@ -1,6 +1,10 @@
 using System.Net;
 using Catalog.Application.Features.Products.Commands.CreateProducts;
+using Catalog.Application.Features.Products.Commands.DeleteProduct;
+using Catalog.Application.Features.Products.Commands.UpdateProducts;
+using Catalog.Application.Features.Products.Queries.GetProduct;
 using Catalog.Application.Features.Products.Queries.GetProductsList;
+using Common.Shared.SeedWork;
 using MediatR;
 
 namespace Catalog.API.Controllers.V1
@@ -15,11 +19,18 @@ namespace Catalog.API.Controllers.V1
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ProductDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProductsAsync([FromQuery] GetProductsListQuery query)
+        [ProducesResponseType(typeof(ApiResult<PagedList<ProductDto>>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<ApiResult<PagedList<ProductDto>>>> GetAllProductsAsync([FromQuery] GetProductsListQuery query)
         {
-            var orders = await _mediator.Send(query);
-            return Ok(orders);
+            var products = await _mediator.Send(query);
+            var result = new ApiResult<PagedList<ProductDto>>
+            {
+                Message = "Success",
+                IsSuccessed = true,
+                ResultObj = products
+            };
+
+            return Ok(result);
         }
 
         // testing purpose
@@ -29,6 +40,39 @@ namespace Catalog.API.Controllers.V1
         {
             var result = await _mediator.Send(command);
             return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ApiResult<ProductDto>>> GetProductByIdAsync(Guid? id)
+        {
+            var product = await _mediator.Send(new GetProductQuery
+            {
+                Id = id
+            });
+
+            var result = new ApiResult<ProductDto>
+            {
+                Message = "Success",
+                IsSuccessed = true,
+                ResultObj = product
+            };
+
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateProductAsync([FromBody] UpdateProductCommand command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteProductAsync(Guid? id)
+        {
+            var command = new DeleteProductCommand() { Id = id };
+            await _mediator.Send(command);
+            return NoContent();
         }
     }
 }
