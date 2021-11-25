@@ -1,3 +1,26 @@
 @page "/product/{Id}"
 
 <h3>Detail @Id</h3>
+@if (Product == null)
+{
+    <ClientApp.Components.Loading></ClientApp.Components.Loading>
+}
+
+<table class="table">
+    <tr>
+        <td>
+            Name
+        </td>
+        <td>
+            @Product.ResultObj.Name
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Price
+        </td>
+        <td>
+            @Product.ResultObj.Price
+        </td>
+    </tr>
+</table>
