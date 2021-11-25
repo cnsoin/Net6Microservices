@@ -34,10 +34,11 @@ builder.Services.AddMediatR(typeof(GetProductsListQuery).GetTypeInfo().Assembly)
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+InitializeDatabase(app);
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -51,3 +52,13 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+void InitializeDatabase(IApplicationBuilder app)
+{
+    using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+    {
+        serviceScope.ServiceProvider.GetRequiredService<CatalogContext>().Database.Migrate();
+        //serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+    }
+}

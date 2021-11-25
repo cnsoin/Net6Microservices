@@ -56,6 +56,8 @@ builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+InitializeDatabase(app);
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -69,3 +71,12 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+void InitializeDatabase(IApplicationBuilder app)
+{
+    using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+    {
+        serviceScope.ServiceProvider.GetRequiredService<OrderContext>().Database.Migrate();
+        //serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+    }
+}

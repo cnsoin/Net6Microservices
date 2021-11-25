@@ -24,7 +24,17 @@ builder.Services.AddDbContext<DiscountContext>(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+InitializeDatabase(app);
 app.MapGrpcService<DiscountService>();
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 app.Run();
+
+void InitializeDatabase(IApplicationBuilder app)
+{
+    using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+    {
+        serviceScope.ServiceProvider.GetRequiredService<DiscountContext>().Database.Migrate();
+        //serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+    }
+}
