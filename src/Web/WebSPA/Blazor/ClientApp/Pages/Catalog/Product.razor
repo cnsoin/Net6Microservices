@@ -1,0 +1,36 @@
+@page "/product"
+@using ClientApp.Components;
+@if (ProductModel.ResultObj.Items == null)
+{
+    <Loading></Loading>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Summary</th>
+            <th>Description</th>
+            <th>ImageFile</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ProductModel.ResultObj.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Category</td>
+                <td>@item.Summary</td>
+                <td>@item.Description</td>
+                <td>@item.ImageFile</td>
+                <td>@item.Price</td>
+                <td>
+                    <a href="/product/@item.Id">Product Detail</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

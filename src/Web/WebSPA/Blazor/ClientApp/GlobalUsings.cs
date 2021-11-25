@@ -1,0 +1,9 @@
+global using System.Net.Http.Json;
+global using Microsoft.AspNetCore.Components;
+global using ClientApp.Model;
+global using Common.Shared.SeedWork;
+global using Newtonsoft.Json;
+global using Microsoft.AspNetCore.Components.Web;
+global using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+global using ClientApp;
+global using ClientApp.Services.Catalog;
