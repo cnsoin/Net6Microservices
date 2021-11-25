@@ -1,36 +1,43 @@
 @page "/product"
 @using ClientApp.Components;
-@if (ProductModel.ResultObj.Items == null)
+@if (Products == null)
 {
     <Loading></Loading>
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Summary</th>
-            <th>Description</th>
-            <th>ImageFile</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in ProductModel.ResultObj.Items)
-        {
+<div>Product</div>
+
+<div class="row mt-4">
+    <table class="table">
+        <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Category</td>
-                <td>@item.Summary</td>
-                <td>@item.Description</td>
-                <td>@item.ImageFile</td>
-                <td>@item.Price</td>
-                <td>
-                    <a href="/product/@item.Id">Product Detail</a>
-                </td>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Summary</th>
+                <th>Description</th>
+                <th>ImageFile</th>
+                <th>Price</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Products)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Category</td>
+                    <td>@item.Summary</td>
+                    <td>@item.Description</td>
+                    <td>@item.ImageFile</td>
+                    <td>@item.Price</td>
+                    <td>
+                        <a href="/product/@item.Id">Product Detail</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"></Pagination>
+        </tfoot>
+    </table>
+</div>

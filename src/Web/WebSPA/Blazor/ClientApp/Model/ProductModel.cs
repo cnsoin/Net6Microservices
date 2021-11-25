@@ -2,7 +2,7 @@ namespace ClientApp.Model
 {
     public class ProductModel
     {
-        public Guid? Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }
         public string Summary { get; set; }
